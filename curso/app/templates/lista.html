@@ -1,0 +1,50 @@
+{% extends './model.html' %}
+{% load bootstrap %}
+{% block content %}
+{% block estilo%}
+
+<style>
+    body{
+        background-color: #ADD8E6;
+    }
+
+    h1{
+        margin-top: 20px;
+        font-size: 40px;
+    }
+  </style>
+
+
+{% endblock%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Randson <strong> ToDo-List </strong></h1>
+            <form  method="post"> {%csrf_token%}
+                <h2>{{form|bootstrap}}</h2>
+                <button class="btn btn-success" type="submit">Salvar</button>
+            </form>
+            <br>
+        {% for conteudo in conteudos %}
+            <div class="card mt-5">
+                    <h5 class="card-header"> Data da Tarefa:  {{ conteudo.data}}</h5>
+                    <div class="card-body">
+                            <h3 class="card-text"> <strong>{{ conteudo.conteudo }} </strong></h3>
+                    </div>
+                    <div class="card-footer">
+                        <form action="../tarefas/delete/{{conteudo.id}}" method="post"> {%csrf_token%}
+                            <button class="btn btn-danger" type="submit">Excluir</button>
+                    </div>      
+                        </form>                     
+            </div>                    
+        {% endfor %}
+{% endblock %}       
+</body>
+</html>
